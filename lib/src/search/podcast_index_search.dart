@@ -7,18 +7,16 @@ import 'package:convert/convert.dart';
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 import 'package:podcast_search/podcast_search.dart';
-import 'package:podcast_search/src/model/attribute.dart';
-import 'package:podcast_search/src/model/country.dart';
-import 'package:podcast_search/src/model/language.dart';
-import 'package:podcast_search/src/model/search_result.dart';
 import 'package:podcast_search/src/search/base_search.dart';
 
 /// This class handles the searching. Taking the base URL we build any parameters
 /// that have been added before making a call to iTunes. The results are unpacked
 /// and stored as Item instances and wrapped in a SearchResult.
 class PodcastIndexSearch extends BaseSearch {
-  static String SEARCH_API_ENDPOINT = 'https://api.podcastindex.org/api/1.0/search';
-  static String TRENDING_API_ENDPOINT = 'https://api.podcastindex.org/api/1.0/podcasts/trending';
+  static String SEARCH_API_ENDPOINT =
+      'https://api.podcastindex.org/api/1.0/search';
+  static String TRENDING_API_ENDPOINT =
+      'https://api.podcastindex.org/api/1.0/podcasts/trending';
 
   PodcastIndexProvider podcastIndexProvider;
 
@@ -74,7 +72,9 @@ class PodcastIndexSearch extends BaseSearch {
           'X-Auth-Date': newUnixTime,
           'X-Auth-Key': podcastIndexProvider.key,
           'Authorization': digest.toString(),
-          'User-Agent': userAgent == null || userAgent!.isEmpty ? '$podcastSearchAgent' : '$userAgent',
+          'User-Agent': userAgent == null || userAgent!.isEmpty
+              ? '$podcastSearchAgent'
+              : '$userAgent',
         },
       ),
     );
@@ -101,12 +101,14 @@ class PodcastIndexSearch extends BaseSearch {
     try {
       var response = await _client.get(_buildSearchUrl(queryParams!));
 
-      return SearchResult.fromJson(json: response.data, type: ResultType.podcastIndex);
+      return SearchResult.fromJson(
+          json: response.data, type: ResultType.podcastIndex);
     } on DioError catch (e) {
       setLastError(e);
     }
 
-    return SearchResult.fromError(lastError: _lastError ?? '', lastErrorType: _lastErrorType);
+    return SearchResult.fromError(
+        lastError: _lastError ?? '', lastErrorType: _lastErrorType);
   }
 
   /// Fetches the list of top podcasts
@@ -131,12 +133,14 @@ class PodcastIndexSearch extends BaseSearch {
             'since': -1 * 3600 * 24 * 7,
           }..addAll(queryParams));
 
-      return SearchResult.fromJson(json: response.data, type: ResultType.podcastIndex);
+      return SearchResult.fromJson(
+          json: response.data, type: ResultType.podcastIndex);
     } on DioError catch (e) {
       setLastError(e);
     }
 
-    return SearchResult.fromError(lastError: _lastError ?? '', lastErrorType: _lastErrorType);
+    return SearchResult.fromError(
+        lastError: _lastError ?? '', lastErrorType: _lastErrorType);
   }
 
   /// This internal method constructs a correctly encoded URL which is then

@@ -5,7 +5,7 @@ class Chapters {
   final String url;
   final String type;
   var loaded = false;
-  var headers = ChapterHeaders();
+  var headers = ChapterHeaders.empty;
   var chapters = <Chapter>[];
 
   Chapters({

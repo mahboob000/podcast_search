@@ -9,8 +9,6 @@ import 'package:dio/dio.dart';
 import 'package:podcast_search/podcast_search.dart';
 import 'package:podcast_search/src/model/chapter.dart';
 import 'package:podcast_search/src/model/chapter_headers.dart';
-import 'package:podcast_search/src/model/chapters.dart';
-import 'package:podcast_search/src/model/episode.dart';
 import 'package:podcast_search/src/model/funding.dart';
 import 'package:podcast_search/src/model/locked.dart';
 import 'package:podcast_search/src/search/base_search.dart';
@@ -48,7 +46,7 @@ class Podcast {
   /// A list of current episodes.
   final List<Episode>? episodes;
 
-  Podcast._({
+  Podcast({
     this.url,
     this.link,
     this.title,
@@ -112,7 +110,7 @@ class Podcast {
       return _loadFeed(rssFeed, file);
     }
 
-    return Podcast._(url: file);
+    return Podcast(url: file);
   }
 
   static Podcast _loadFeed(RssFeed rssFeed, String url) {
@@ -136,7 +134,7 @@ class Podcast {
 
     _loadEpisodes(rssFeed, episodes);
 
-    return Podcast._(
+    return Podcast(
       url: url,
       link: rssFeed.link,
       title: rssFeed.title,

@@ -7,11 +7,19 @@ class ChapterHeaders {
   final String fileName;
 
   ChapterHeaders({
-    this.version = '',
-    this.author = '',
-    this.title = '',
-    this.podcastName = '',
-    this.description = '',
-    this.fileName = '',
+    required this.version,
+    required this.author,
+    required this.title,
+    required this.podcastName,
+    required this.description,
+    required this.fileName,
   });
+
+  static ChapterHeaders empty = ChapterHeaders(
+      version: '',
+      author: '',
+      title: '',
+      podcastName: '',
+      description: '',
+      fileName: '');
 }
